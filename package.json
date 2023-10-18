@@ -1,0 +1,23 @@
+{
+  "name": "civic-action-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheruto-yego/CIVIC-ACTION-CODE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheruto-yego/CIVIC-ACTION-CODE/issues"
+  },
+  "homepage": "https://github.com/cheruto-yego/CIVIC-ACTION-CODE#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

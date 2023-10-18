@@ -1,4 +1,9 @@
-// console.log method of writing messages to the console, 
-//console is an object that writes messages to the console ***
-console.log("hello world")
-console.log("hello clients")
+const express = require("express")
+
+const app = express()
+
+app.get("/" , (req, res) => {
+    res.send("Hello World")
+})
+
+app.listen(3000, () => console.log("Server is running on port 3000"))
