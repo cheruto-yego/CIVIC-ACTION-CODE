@@ -32,7 +32,7 @@ app.get('/signup', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-    const { email, username, clientNumber, password } = req.body;
+    const { email, username, client_number, password } = req.body;
 
     // Insert user data into MySQL database
     const query = 'INSERT INTO users (email, username, client_number, password) VALUES (?, ?, ?, ?)';
