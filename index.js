@@ -6,7 +6,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }));
 // Create a MySQL connection
 const connection = mysql.createConnection({
-    host: 'your-mysql-host',
+    host: 'localhost',
     user: 'root',
     password: '',
     database: 'law_app_db'
