@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const users = [];
 
 app.get("/" , (req, res) => {
-    res.send("Hello World from Civic Action")
+    
     res.send(`
     <form action="/signup" method="post">
         Email: <input type="email" name="email" required><br>
