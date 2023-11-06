@@ -1,8 +1,26 @@
 const express = require("express")
 const bodyParser = require('body-parser');
+const mysql = require('mysql2');
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }));
+// Create a MySQL connection
+const connection = mysql.createConnection({
+    host: 'your-mysql-host',
+    user: 'root',
+    password: '',
+    database: 'law_app_db'
+});
+
+// Connect to the MySQL database
+connection.connect(err => {
+    if (err) {
+        console.error('Error connecting to MySQL database: ' + err.stack);
+        return;
+    }
+    console.log('Connected to MySQL database as id ' + connection.threadId);
+});
+
 
 const users = [];
 

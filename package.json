@@ -18,7 +18,8 @@
   "homepage": "https://github.com/cheruto-yego/CIVIC-ACTION-CODE#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.3"
   },
   "description": ""
 }
