@@ -5,14 +5,12 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Create a MySQL connection
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'law_app_db'
 });
 
-// Connect to the MySQL database
 connection.connect(err => {
     if (err) {
         console.error('Error connecting to MySQL database: ' + err.stack);
@@ -21,7 +19,6 @@ connection.connect(err => {
     console.log('Connected to MySQL database as id ' + connection.threadId);
 });
 
-// Serve the signup form
 app.get('/signup', (req, res) => {
     res.send(`
         <form action="/signup" method="post">
@@ -34,7 +31,6 @@ app.get('/signup', (req, res) => {
     `);
 });
 
-// Handle form submission
 app.post('/signup', (req, res) => {
     const { email, username, clientNumber, password } = req.body;
 
@@ -50,7 +46,7 @@ app.post('/signup', (req, res) => {
     });
 });
 
-// Start the server
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
