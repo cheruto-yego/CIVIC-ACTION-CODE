@@ -21,9 +21,6 @@ connection.connect(err => {
     console.log('Connected to MySQL database as id ' + connection.threadId);
 });
 
-
-const users = [];
-
 app.post('/signup', (req, res) => {
     const { email, username, password, client_number } = req.body;
 
