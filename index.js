@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
-require('dotenv').config()
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const app = express();
 
@@ -15,6 +15,7 @@ connection.connect((err) => {
     return;
   }
   console.log("Connected to MySQL database as id " + connection.threadId);
+  console.log("Connected to PlanetScale!");
 });
 
 const users = [];
