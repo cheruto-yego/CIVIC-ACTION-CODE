@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import mysql from "mysql2";
+import { config } from "dotenv";
 
+config();
 const app = express();
 // Enable CORS for all routes
 app.use(cors());
@@ -9,10 +11,7 @@ app.use(express.json());
 
 // connecting Database
 const connection = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "123@Yego",
-  database: "users",
+  uri: process.env.DATABASE_URL
 });
 
 // post request
