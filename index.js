@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
+import mysql from "mysql2";
 
 const app = express();
 // Enable CORS for all routes
 app.use(cors());
 app.use(express.json());
-
-import mysql from "mysql2";
 
 // connecting Database
 const connection = mysql.createPool({
