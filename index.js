@@ -1,74 +1,106 @@
-const express = require("express");
-const mysql = require("mysql");
-require("dotenv").config();
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "cors";
+
 const app = express();
+// Enable CORS for all routes
+app.use(cors());
+app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-// Create a MySQL connection
-const connection = mysql.createConnection(process.env.DATABASE_URL);
+import mysql from "mysql2";
 
-// Connect to the MySQL database
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL database: " + err.stack);
-    return;
-  }
-  console.log("Connected to MySQL database as id " + connection.threadId);
-  console.log("Connected to PlanetScale!");
+// connecting Database
+const connection = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "123@Yego",
+  database: "users",
 });
 
-const users = [];
+// post request
 
-app.get("/", (req, res) => {
-  res.send(`
-    <form action="/signup" method="post">
-        Email: <input type="email" name="email" required><br>
-        Username: <input type="text" name="username" required><br>
-        client_number: <input type="tel" name="client_number" required><br>
-        Password: <input type="password" name="password" required><br>
-        <input type="submit" value="Sign Up">
-    </form>
-`);
-});
-
-app.post("/signup", (req, res) => {
-  const { email, username, client_number, password } = req.body;
-
-  // Check if the email is already registered in the database
-  const checkQuery = "SELECT * FROM client_table WHERE email = ?";
-  connection.query(checkQuery, [email], (error, results) => {
-    if (error) {
-      console.error("Error checking existing user:", error);
-      return res.send("Error occurred during signup.");
-    }
-
-    // If the user already exists, send an error message
-    if (results.length > 0) {
-      return res.send(
-        "Email already registered. Please use a different email."
-      );
-    }
-
-    // Insert the new user into the client_table
-    const insertQuery =
-      "INSERT INTO client_table (email, username, client_number, password) VALUES (?, ?, ?, ?)";
-    connection.query(
-      insertQuery,
-      [email, username, client_number, password],
-      (err, result) => {
-        if (err) {
-          console.error("Error inserting user data:", err);
-          return res.send("Error occurred during signup.");
-        }
-        console.log("New user registered with ID:", result.insertId);
-        res.send("Signup successful!");
-      }
+app.post("/users", async (req, res) => {
+  try {
+    const { name, email, password, number } = req.body;
+    const [{ insertId }] = await connection.promise().query(
+      `INSERT INTO users (name, email, password, number) 
+          VALUES (?, ?,?,?)`,
+      [name, email, password, number]
     );
-  });
+    res.status(202).json({
+      message: "User Created",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err,
+    });
+  }
 });
 
-const PORT = process.env.PORT || 3001; // Use the PORT environment variable provided by Render or default to 3000
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.get("/users", async (req, res) => {
+  try {
+    const data = await connection.promise().query(`SELECT *  from users;`);
+    res.status(200).json({
+      users: data[0],
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err,
+    });
+  }
+});
+
+app.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await connection
+      .promise()
+      .query(`SELECT *  from users where id = ?`, [id]);
+    res.status(200).json({
+      user: data[0][0],
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err,
+    });
+  }
+});
+
+app.patch("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, password, number } = req.body;
+    const update = await connection
+      .promise()
+      .query(
+        `UPDATE users set name = ?, email = ?, password = ?, number = ? where id = ?`,
+        [name, email, password, number, id]
+      );
+    res.status(200).json({
+      message: "updated",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err,
+    });
+  }
+});
+
+app.delete("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = await connection
+      .promise()
+      .query(`DELETE FROM  users where id = ?`, [id]);
+    res.status(200).json({
+      message: "deleted",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err,
+    });
+  }
+});
+
+app.listen(5000, () => {
+  console.log("Server listening in http://localhost:5000");
 });
