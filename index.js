@@ -11,7 +11,7 @@ app.use(express.json());
 
 // connecting Database
 const connection = mysql.createPool({
-  uri: process.env.DATABASE_URL
+  uri: process.env.DATABASE_URL,
 });
 
 // post request
