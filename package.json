@@ -1,32 +1,23 @@
 {
-  "name": "civic-action-code",
+  "name": "civic",
+  "type": "module",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cheruto-yego/CIVIC-ACTION-CODE.git"
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cheruto-yego/CIVIC-ACTION-CODE/issues"
-  },
-  "homepage": "https://github.com/cheruto-yego/CIVIC-ACTION-CODE#readme",
   "dependencies": {
-    "add": "^2.0.6",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.6.3",
-    "net": "^1.0.2",
-    "require": "^0.4.4",
-    "yarn": "^1.22.19"
-  },
-  "description": ""
+    "mysql2": "^3.6.4",
+    "nodemon": "^3.0.1"
+  }
 }
