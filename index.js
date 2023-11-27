@@ -96,6 +96,6 @@ app.delete("/user/:id", async (req, res) => {
   }
 });
 
-app.listen(https://api.render.com/deploy/srv-clept353qkas73avl260?key=MS1gPSiOFQg, () => {
-  console.log("Server listening in https://api.render.com/deploy/srv-clept353qkas73avl260?key=MS1gPSiOFQg");
+app.listen(http://localhost:5000, () => {
+  console.log("Server listening in http://localhost:5000");
 });
