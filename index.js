@@ -10,18 +10,15 @@ app.use(cors());
 app.use(express.json());
 
 // connecting Database
-const connection = mysql.createPool({
-  uri: process.env.DATABASE_URL,
-});
+const connection = mysql.createPool({ uri: process.env.DATABASE_URL });
 
 // post request
-
 app.post("/users", async (req, res) => {
   try {
     const { name, email, password, number } = req.body;
     const [{ insertId }] = await connection.promise().query(
       `INSERT INTO users (name, email, password, number) 
-          VALUES (?, ?,?,?)`,
+          VALUES (?,?,?,?)`,
       [name, email, password, number]
     );
     res.status(202).json({
@@ -37,7 +34,7 @@ app.post("/users", async (req, res) => {
 app.get("/users", async (req, res) => {
   try {
     const data = await connection.promise().query(`SELECT *  from users;`);
-    res.status(200).json({
+    req.status(200).json({
       users: data[0],
     });
   } catch (err) {
