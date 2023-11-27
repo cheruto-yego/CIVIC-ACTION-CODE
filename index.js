@@ -97,5 +97,5 @@ app.delete("/user/:id", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("Server listening in http://localhost:5000");
+  console.log("Server listening in http://127.0.0.1:5000");
 });
